@@ -10,4 +10,7 @@
     </head>
     <body>
     
-        <p>hello world</p>
+        <nav>
+            <a href=""><div>Calculator</div></a>
+            <a href=""><div>My Calculations</div></a>
+        </nav>
