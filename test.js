@@ -15,3 +15,9 @@ QUnit.test( "Payment calculation", function( assert ) {
     assert.equal(calcPMT(0,0,0,0),"NaN");
     
 });
+
+QUnit.test( "Validate years", function( assert ) {
+    assert.equal(validateYears(1),true);
+    assert.equal(validateYears(-1),false);
+    assert.equal(validateYears(0),false);
+});
