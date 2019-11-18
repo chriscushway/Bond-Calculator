@@ -16,8 +16,23 @@ QUnit.test( "Payment calculation", function( assert ) {
     
 });
 
-QUnit.test( "Validate years", function( assert ) {
-    assert.equal(validateYears(1),true);
-    assert.equal(validateYears(-1),false);
-    assert.equal(validateYears(0),false);
+QUnit.test( "Validate numeric input", function( assert ) {
+    assert.equal(onlyNumbers("111"),true);
+    assert.equal(onlyNumbers("1aaaa1"),false);
+    assert.equal(onlyNumbers("72.1ab"),false);
+    assert.equal(onlyNumbers("hello world"),false);
 });
+
+QUnit.test( "Validate non negative input", function( assert ) {
+    assert.equal(validateInput(1),true);
+    assert.equal(validateInput(-1),false);
+    assert.equal(validateInput(0),false);
+});
+
+QUnit.test( "Validate payment", function( assert ) {
+    assert.equal(validatePayment(1),true);
+    assert.equal(validatePayment(-1),false);
+    assert.equal(validatePayment(0),true);
+    assert.equal(validatePayment(36000),true);
+});
+
