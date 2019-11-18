@@ -22,16 +22,18 @@ function calcPMT(rate,PV,years,initial_payment){
     function to validate rate entered is greater than 0 and less than 100
     returns a boolean
 */
-
 function validateRate(rate){
     return 0<rate && rate <= 100;
 }
 
 /*
-    function to validate years entered is greater than 0
+    function to validate input entered is greater than 0
     returns a boolean
 */
-
-function validateYears(years){
-    return years>0;
+function validateInput(input){
+    return input>0;
 }
+
+$("#calc-button").click(function(){
+   alert("hello"); 
+});
