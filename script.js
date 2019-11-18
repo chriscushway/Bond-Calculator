@@ -148,12 +148,20 @@ $("#save").click(function(){
     if(validateCalcName($("#calc-name").val())){
         var dataString = createDataString(inputs);
         dataString+="&name="+$("#calc-name").val();
+        dataString+="&total="+
+        calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment']);
           $.ajax({
             type: "POST",
             url: "model.php?action="+$(this).attr("action"),
             data:dataString,
             success: function(data){
-                alert(data);
+                if(data=="1"){
+                    
+                }else if(data=="0"){
+                    
+                }else{
+                    
+                }
 
             }
         });                  
