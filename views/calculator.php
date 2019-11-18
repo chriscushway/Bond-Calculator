@@ -29,13 +29,16 @@
             <div id="total"><span>Payment per month</span><span>R1435</span></div>
             <br>
             <hr>
-            <div id="rate"><span>Rate</span><span></span></div>
-            <div id="period"><span>Period</span><span></span></div>
-            <div id="initial_payment"><span>Down Payment</span><span></span></div>
-            <div id="PV"><span>Loan amount</span><span></span></div>
+            <div id="rate"><span>Rate</span><span><span class="value"></span><span> %</span></span></div>
+            <div id="period"><span>Period</span><span><span class="value"></span><span> yrs</span></span></div>
+            <div id="initial_payment"><span>Down Payment</span><span><span>R </span><span class="value"></span></span></div>
+            <div id="PV"><span>Loan amount</span><span><span>R </span><span class="value"></span></span></div>
             <br>
             <hr>
-            
+            <div>
+                <label>Calculation Name</label>
+                <input id="calc-name" type="text">
+            </div>
             <div id="button-div">
                 
                 <button id="new">New Calculation</button>
