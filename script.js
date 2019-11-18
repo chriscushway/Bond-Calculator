@@ -1,5 +1,5 @@
 var inputs = [];
-
+var flags = {rate:0,PV:0,period:0,initial_payment:0}
 
 /*
     rate - Fixed interest rate
@@ -62,34 +62,60 @@ function reportInputError(input){
     input.siblings("small").show();
 }
 
+function checkFlags(flags){
+    for(key in flags){
+        if(flags[key]==0){
+            return false;
+        }
+    }
+    return true;
+}
 
+function removeErrors(){
+    $("#calculator input").each(function(){
+        $(this).css("border-color","#35A7FF");
+        $(this).siblings("label").css("color","#35A7FF");
+    });
+}
+
+function updateInputsAndFlags(input,id){
+    inputs[id] = input.val();
+    flags[id] = 1;
+}
 
 $("#calc-button").click(function(){
-    var flag = true;
+
     //Validate inputs
     //if inputs valid add them to associative array
     //Want to use associative array so we can retrieve item by key (id) value in O(1) time
     $("#calculator input").each(function(){
-        if(!validateInput($(this).val()) && !$(this).attr('id')=="initial_payment"){
+        if($(this).attr('id')=="initial_payment"){
+            if(!validatePayment($(this).val())){
+                reportInputError($(this));
+                flags[$(this).attr("id")] = 0;
+            }else{
+                updateInputsAndFlags($(this),$(this).attr("id"));
+            }   
+        }else if(!validateInput($(this).val())){
             reportInputError($(this));
+            flags[$(this).attr("id")] = 0;
         }else if($(this).attr('id')=="rate"){
             if(!validateRate($(this).val())){
                 reportInputError($(this));
+                flags[$(this).attr("id")] = 0;
             }else{
-                inputs[''+$(this).attr("id")] = $(this).val();
+                updateInputsAndFlags($(this),$(this).attr("id"));
             }
-        }else if($(this).attr('id')=="initial_payment"){
-            if(!validatePayment($(this).val())){
-                reportInputError($(this));
-            }else{
-                inputs[''+$(this).attr("id")] = $(this).val();
-            }   
+          
         }else{
-            inputs[''+$(this).attr("id")+''] = $(this).val();
+            updateInputsAndFlags($(this),$(this).attr("id"));
         }
     });
-    if(flag){
+    if(checkFlags(flags)){
         displayOutput();
+        removeErrors();
+    }else{
+        $("#output").hide();
     }
     
 });
@@ -102,3 +128,7 @@ function displayOutput(){
        
     $("#output").fadeIn(1000);
 }
+
+$("#new").click(function(){
+   $("#output").hide(); 
+});
