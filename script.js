@@ -44,17 +44,19 @@ function onlyNumbers(input){
     return /^\d+$/.test(input);
 }
 
+/*
+    function that turns inputs and their corresponding labels red
+*/
 function reportInputError(input){
     input.css("border-color","#FF5964");
     input.siblings("label").css("color","#FF5964");
     input.siblings("small").show();
 }
 
-function displayOutput(inputs){
-    $("#output").html("<p>Monthly payment R: "+calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment'])+"");
-}
+
 
 $("#calc-button").click(function(){
+    var flag = true;
     //Validate inputs
     //if inputs valid add them to associative array
     //Want to use associative array so we can retrieve item by key (id) value in O(1) time
@@ -68,9 +70,21 @@ $("#calc-button").click(function(){
                 inputs[''+$(this).attr("id")] = $(this).val();
             }
         }else{
-            inputs[''+$(this).attr("id")] = $(this).val();
-            console.log(inputs[''+$(this).attr("id")+'']);
+            inputs[''+$(this).attr("id")+''] = $(this).val();
+            
         }
     });
-    displayOutput(inputs);
+    if(flag){
+        displayOutput();
+    }
+    
 });
+
+function displayOutput(){
+    $("#output #total span:last-child").html("R "+calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment'])+"");
+    for(key in inputs){
+        $("#output #"+key).children("span").eq(1).html("hello");
+    }
+       
+    $("#output").fadeIn(1000);
+}
