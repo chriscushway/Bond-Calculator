@@ -51,6 +51,7 @@ nav div:hover{
     box-shadow: 0px 3px 10px gray;
     border-radius: 5px;
     background-color: white;
+    margin-bottom:30px;
 }
 
 #calculator div:first-child{
@@ -95,10 +96,12 @@ nav div:hover{
 #calculator input{
     border-radius:5px;
     padding:10px 5px;
-    border:1px solid #35A7FF;
+    border:1px solid;
     font-weight:bold;
     color:gray;
     box-sizing: border-box;
+    border-color:#35A7FF;
+    //#44E5E7
 }
 
 #calculator label{
@@ -113,8 +116,95 @@ nav div:hover{
     width:100%;
 }
 
+#output{
+    float:left;
+    width:100%;
+    box-sizing: border-box;
+    background-color: #011627;
+    padding:20px 30px;
+    box-shadow: 0px 3px 10px gray;
+    border-radius:5px;
+}
+
+#output div:not(:last-child):not(:first-child){
+    width:100%;
+    float:left;
+    color:white;
+    box-sizing: border-box;
+    padding:20px;
+    margin-bottom:10px;
+}
+
+#button-div{
+    float:left;
+    width:100%;
+    padding:20px 0;
+}
+
+#total{
+    float:left;
+    width:100%;
+    color:#59CD90;
+    padding:30px 20px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+}
+
+#output hr{
+    background-color: white;
+    width:100%;
+    box-sizing: border-box;
+    padding:0 20px;
+    height:1px;
+    float:left;
+    border:none;
+}
+
+#output div span:first-child{
+    float:left;
+}
+
+#output div span:last-child{
+    float:right;
+}
+
+#bd{
+    background-color: red !important;
+}
+
+#new,#save{
+    float:left;
+    padding:20px;
+    box-sizing: border-box;
+    width:calc(50% - 20px);
+    border:none;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
+    text-transform:uppercase;
+    letter-spacing: 1.1px;
+}
+
+#save{
+    background-color: #35A7FF;
+    margin-left:20px;
+}
+
+#new{
+    background-color: #59CD90;
+    margin-right:20px;
+}
+
+button:hover{
+    cursor:pointer;
+}
+
 @media screen and (min-width: 700px){
     .container .segment{
+        width:50%;
+    }
+    
+    #output div:not(:last-child):not(:first-child){
         width:50%;
     }
 } 
