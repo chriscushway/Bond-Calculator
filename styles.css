@@ -117,6 +117,7 @@ nav div:hover{
 }
 
 #output{
+    display:none;
     float:left;
     width:100%;
     box-sizing: border-box;
@@ -197,6 +198,21 @@ nav div:hover{
 
 button:hover{
     cursor:pointer;
+}
+
+#output input{
+    border:none;
+    background-color: transparent;
+    padding:10px 0;
+    color:#59CD90;
+    font-weight:bold;
+    width:100%;
+    box-sizing:border-box;
+    border-bottom:#59CD90 solid thin;
+}
+
+#output input:focus{
+   outline:none;
 }
 
 @media screen and (min-width: 700px){

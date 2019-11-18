@@ -37,6 +37,15 @@ function validateInput(input){
 }
 
 /*
+    function to validate initial payment entered is greater or equal to 0
+    returns a boolean
+*/
+
+function validatePayment(payment){
+    return payment>=0;
+}
+
+/*
     function to test if value inputted contains letters
     returns boolean
 */
@@ -61,7 +70,7 @@ $("#calc-button").click(function(){
     //if inputs valid add them to associative array
     //Want to use associative array so we can retrieve item by key (id) value in O(1) time
     $("#calculator input").each(function(){
-        if(!validateInput($(this).val())){
+        if(!validateInput($(this).val()) && !$(this).attr('id')=="initial_payment"){
             reportInputError($(this));
         }else if($(this).attr('id')=="rate"){
             if(!validateRate($(this).val())){
@@ -69,9 +78,14 @@ $("#calc-button").click(function(){
             }else{
                 inputs[''+$(this).attr("id")] = $(this).val();
             }
+        }else if($(this).attr('id')=="initial_payment"){
+            if(!validatePayment($(this).val())){
+                reportInputError($(this));
+            }else{
+                inputs[''+$(this).attr("id")] = $(this).val();
+            }   
         }else{
             inputs[''+$(this).attr("id")+''] = $(this).val();
-            
         }
     });
     if(flag){
@@ -83,7 +97,7 @@ $("#calc-button").click(function(){
 function displayOutput(){
     $("#output #total span:last-child").html("R "+calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment'])+"");
     for(key in inputs){
-        $("#output #"+key).children("span").eq(1).html("hello");
+        $("#output #"+key).children("span").eq(1).children(".value").html(" "+inputs[key]+" ");
     }
        
     $("#output").fadeIn(1000);
