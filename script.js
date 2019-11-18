@@ -128,3 +128,7 @@ function displayOutput(){
        
     $("#output").fadeIn(1000);
 }
+
+$("#new").click(function(){
+   $("#output").hide(); 
+});
