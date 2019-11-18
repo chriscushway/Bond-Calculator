@@ -78,6 +78,10 @@ function removeErrors(){
     });
 }
 
+function validateCalcName(input){
+    return input.length > 0;
+}
+
 function updateInputsAndFlags(input,id){
     inputs[id] = input.val();
     flags[id] = 1;
@@ -125,10 +129,38 @@ function displayOutput(){
     for(key in inputs){
         $("#output #"+key).children("span").eq(1).children(".value").html(" "+inputs[key]+" ");
     }
-       
     $("#output").fadeIn(1000);
 }
 
 $("#new").click(function(){
    $("#output").hide(); 
+});
+
+function createDataString(inputs){
+    var dataString ="";
+    for(key in inputs){
+        dataString+="&"+key+"="+inputs[key];
+    }
+    return dataString;
+}
+
+$("#save").click(function(){
+    if(validateCalcName($("#calc-name").val())){
+        var dataString = createDataString(inputs);
+        dataString+="&name="+$("#calc-name").val();
+          $.ajax({
+            type: "POST",
+            url: "model.php?action="+$(this).attr("action"),
+            data:dataString,
+            success: function(data){
+                alert(data);
+
+            }
+        });                  
+
+    }else{
+        
+        $("#calc-name").siblings("label").append("<sup>  *name required*</sup>");
+        $("#calc-name").siblings("label").css("color","#FF5964");
+    }
 });

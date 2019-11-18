@@ -36,3 +36,27 @@ QUnit.test( "Validate payment", function( assert ) {
     assert.equal(validatePayment(36000),true);
 });
 
+QUnit.test( "test flags", function( assert ) {
+    assert.equal(checkFlags({rate:1,PV:0,period:1,initial_payment:1}),false);
+    assert.equal(checkFlags({rate:0,PV:0,period:0,initial_payment:0}),false);
+    assert.equal(checkFlags({rate:1,PV:1,period:1,initial_payment:1}),true);
+    assert.equal(checkFlags({rate:1,PV:1,period:1,initial_payment:0}),false);
+    assert.equal(checkFlags({rate:1,PV:0,period:0,initial_payment:0}),false);
+    
+});
+
+QUnit.test( "test name of calculation", function( assert ) {
+    assert.equal(validateCalcName(""),false);
+    assert.equal(validateCalcName("aaa"),true);
+    assert.equal(validateCalcName("calc 1"),true);
+    assert.equal(validateCalcName("1212"),true);
+    assert.equal(validateCalcName("-1"),true);
+    
+});
+
+
+QUnit.test( "test data string creation", function( assert ) {
+     assert.equal(createDataString({rate:1,PV:1000,period:1,initial_payment:0}),"&rate=1&PV=1000&period=1&initial_payment=0");
+    assert.equal(createDataString({rate:10,PV:1000,period:1,initial_payment:0}),"&rate=10&PV=1000&period=1&initial_payment=0");
+    assert.equal(createDataString({rate:10,PV:1000,period:15,initial_payment:1000}),"&rate=10&PV=1000&period=15&initial_payment=1000");
+});
