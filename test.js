@@ -1,3 +1,10 @@
+QUnit.test( "Rate conversion calculation", function( assert ) {
+    assert.equal(rateAsDecimal(6,12),"0.005");
+    assert.equal(rateAsDecimal(6,0),Infinity);
+    assert.equal(rateAsDecimal(0,12),"0");
+    assert.equal(rateAsDecimal(12,12),"0.01");
+    assert.equal(rateAsDecimal(12,6),"0.02");
+});
 
 QUnit.test( "Validate inputted rate", function( assert ) {
     assert.equal(validateRate(-1),false);
@@ -59,4 +66,21 @@ QUnit.test( "test data string creation", function( assert ) {
      assert.equal(createDataString({rate:1,PV:1000,period:1,initial_payment:0}),"&rate=1&PV=1000&period=1&initial_payment=0");
     assert.equal(createDataString({rate:10,PV:1000,period:1,initial_payment:0}),"&rate=10&PV=1000&period=1&initial_payment=0");
     assert.equal(createDataString({rate:10,PV:1000,period:15,initial_payment:1000}),"&rate=10&PV=1000&period=15&initial_payment=1000");
+});
+
+QUnit.test( "Outstanding balance calculation", function( assert ) {
+    assert.equal(calcOutstBal(4219.28414,500000,6,15),"0.00");
+    assert.equal(calcOutstBal(4219.28414,500000,6,179/12),"4198.29");
+    assert.equal(calcOutstBal(4219.28414,500000,6,1/12),"498280.72");
+});
+
+QUnit.test( "Calculation of interest accrued", function( assert ) {
+    assert.equal(calcInterest(500000,6,1/12),"2500.00");
+    assert.equal(calcInterest(500000,6,1),"30838.91");
+    assert.equal(calcInterest(500000,6,2),"63579.89");
+});
+
+QUnit.test( "Calculation of percent paid as interest", function( assert ) {
+    assert.equal(calcInterestPaid(4219.28414,2500.00),"59.25");
+    
 });
