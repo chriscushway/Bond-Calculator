@@ -17,7 +17,7 @@ function calcPMT(rate,PV,years,initial_payment){
     rate = rateAsDecimal(rate,12); //Get rate as decimal value
     PV = PV - initial_payment;
     var PMT = (PV * rate)/(1-Math.pow((1+rate),-(years*12)));
-    return PMT.toFixed(2);
+    return PMT;
 }
 
 /*
@@ -38,7 +38,7 @@ function calcOutstBal(PMT,PV,rate,period_complete){
     var power = period_complete*12;
     var balance = PV*(Math.pow((1+rate),power))-PMT*(((Math.pow((1+rate),power))-1)/rate);
     
-    return balance.toFixed(2);
+    return balance;
 }
 
 /*
@@ -52,7 +52,7 @@ function calcInterest(balance,rate,period){
     period *= 12; 
     var interest = balance*Math.pow((1+rate),period);
     interest-=balance;
-    return interest.toFixed(2);
+    return interest;
 }
 
 /*
@@ -61,7 +61,7 @@ function calcInterest(balance,rate,period){
     returns float rounded to 2 decimal places
 */
 function calcInterestPaid(interest,PMT){
-    return ((interest/PMT) * 100).toFixed(2);
+    return ((interest/(PMT*12)) * 100);
 }
 
 /*
@@ -178,7 +178,7 @@ function editLabel(input,message){
 }
 
 function displayOutput(){
-    $("#output #total span:last-child").html("R "+calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment'])+"");
+    $("#output #total span:last-child").html("R "+calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment']).toFixed(2)+"");
     for(key in inputs){
         $("#output #"+key).children("span").eq(1).children(".value").html(" "+inputs[key]+" ");
     }
@@ -186,9 +186,24 @@ function displayOutput(){
 }
 
 function createAndDisplayTable(){
-    for(var i = inputs['period'];i<inputs['period']+1;i++){
-        $("#table").append("<tr><td>"+i+"</td><td></td><td></td></tr>")
+    var rate = inputs['rate']; 
+    var PV = inputs['PV'];
+    var period = inputs['period'];
+    var initial_payment = inputs['initial_payment'];
+    console.log(rate+" "+PV+" "+period+" "+initial_payment);
+    var PMT = calcPMT(rate,PV,period,initial_payment);
+    console.log("PMT = "+PMT);
+    for(var i = 1;i<=inputs['period'];i++){
+        var balance = calcOutstBal(PMT,PV,rate,i);
+        console.log("bal "+balance);
+        var interest = calcInterest(balance,rate,1);
+        console.log("interest "+interest);
+        var interestPercent = calcInterestPaid(interest,PMT).toFixed(2);
+        var capital = (100 - interestPercent).toFixed(2);
+        $("#table tbody").append("<tr><td>"+i+"</td><td>"+interestPercent+"</td><td>"+capital+"</td></tr>");
+        
     }
+   
     
 }
 

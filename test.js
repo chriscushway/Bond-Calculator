@@ -17,9 +17,9 @@ QUnit.test( "Validate inputted rate", function( assert ) {
 });
 
 QUnit.test( "Payment calculation", function( assert ) {
-    assert.equal(calcPMT(6.5,200000,30,0),"1264.14");
-    assert.equal(calcPMT(6.5,200000,30,10000),"1200.93");
-    assert.equal(calcPMT(0,0,0,0),"NaN");
+    assert.equal(calcPMT(6.5,200000,30,0).toFixed(2),"1264.14");
+    assert.equal(calcPMT(6.5,200000,30,10000).toFixed(2),"1200.93");
+    assert.equal(calcPMT(0,0,0,0).toFixed(2),"NaN");
     
 });
 
@@ -69,18 +69,22 @@ QUnit.test( "test data string creation", function( assert ) {
 });
 
 QUnit.test( "Outstanding balance calculation", function( assert ) {
-    assert.equal(calcOutstBal(4219.28414,500000,6,15),"0.00");
-    assert.equal(calcOutstBal(4219.28414,500000,6,179/12),"4198.29");
-    assert.equal(calcOutstBal(4219.28414,500000,6,1/12),"498280.72");
+    assert.equal(calcOutstBal(4219.28414,500000,6,15).toFixed(2),"0.00");
+    assert.equal(calcOutstBal(4219.28414,500000,6,179/12).toFixed(2),"4198.29");
+    assert.equal(calcOutstBal(4219.28414,500000,6,1/12).toFixed(2),"498280.72");
 });
 
 QUnit.test( "Calculation of interest accrued", function( assert ) {
-    assert.equal(calcInterest(500000,6,1/12),"2500.00");
-    assert.equal(calcInterest(500000,6,1),"30838.91");
-    assert.equal(calcInterest(500000,6,2),"63579.89");
+    assert.equal(calcInterest(500000,6,1/12).toFixed(2),"2500.00");
+    assert.equal(calcInterest(500000,6,1).toFixed(2),"30838.91");
+    assert.equal(calcInterest(500000,6,2).toFixed(2),"63579.89");
 });
 
 QUnit.test( "Calculation of percent paid as interest", function( assert ) {
-    assert.equal(calcInterestPaid(4219.28414,2500.00),"59.25");
-    
+    assert.equal(calcInterestPaid(2500.00,4219.28414),"59.25");
+    assert.equal(calcInterestPaid(0,100).toFixed(2),"0.00");
+    assert.equal(calcInterestPaid(100,100).toFixed(2),"100.00");
+    assert.equal(calcInterestPaid(120,100).toFixed(2),"120.00");
+    assert.equal(calcInterestPaid(-10,100).toFixed(2),"-10.00");
+    assert.equal(calcInterestPaid(25,50).toFixed(2),"50.00");
 });

@@ -25,6 +25,10 @@
             
         
         </div>
+        
+        
+    </div>
+    <div class="segment">
         <div id="output">
             <div id="total"><span>Payment per month</span><span>R1435</span></div>
             <br>
@@ -45,16 +49,25 @@
                 <button id="save" action="save">Save Calculation</button>
             </div>
         </div>
-        
     </div>
     <div class="segment">
         <table id="table">
-            <tr>
-                <th>Year</th>
-                <th>Interest %</th>
-                <th>Capital %</th>
-            </tr>
+            
+                <thead>
+                    <th>Year</th>
+                    <th>Interest %</th>
+                    <th>Capital %</th>
+                </thead>
+                <br><hr>
+                <tbody>
+                
+                </tbody>
+           
         </table>
+    </div>
+    <div class="segment">
+        
+    
     </div>
   
 </div>
