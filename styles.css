@@ -7,7 +7,8 @@ body{
 nav{
     width:100%;
     height:100px;
-    background-image: linear-gradient(to bottom right, #59CD90,#73FBD3);
+    //background-image: linear-gradient(to bottom right, #59CD90,#73FBD3);
+    background-color: #25A18E;
     text-align: center;
     box-shadow: 0px 3px 10px gray; 
     display: flex;
@@ -127,7 +128,7 @@ nav div:hover{
     border-radius:5px;
 }
 
-#output div:not(:last-child):not(:first-child){
+#output div:not(:last-child):not(:first-child):not(#error){
     width:100%;
     float:left;
     color:white;
@@ -200,6 +201,32 @@ button:hover{
     cursor:pointer;
 }
 
+#output #error{
+    padding:0 20px;
+    float:left;
+    display:none;
+    color:#FF5964;
+}
+
+#modal{
+    position:fixed;
+    z-index:1;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    top:0;
+    left:0;
+    display:none;
+}
+
+.content{
+    width:80%;
+    background-color: #011627;
+    margin:15% auto;
+    border-radius:5px;
+    box-shadow: 0px 3px 10px gray;
+    display:none;
+}
 #output input{
     border:none;
     background-color: transparent;
@@ -215,12 +242,44 @@ button:hover{
    outline:none;
 }
 
+div[class^="modal"]{
+    width:100%;
+    
+    box-sizing: border-box;
+    padding:10px 20px;
+}
+
+.close{
+    float:right;
+    color:#FF5964;
+    font-size:150%;
+    font-weight: bold;
+}
+
+.close:hover{
+    cursor:pointer;
+}
+
+#modal-heading{
+    color:#59CD90;
+    font-weight:bolder;
+}
+
+.modal-body p{
+    color:white;
+}
+
 @media screen and (min-width: 700px){
     .container .segment{
         width:50%;
     }
     
-    #output div:not(:last-child):not(:first-child){
+    #output div:not(:last-child):not(:first-child):not(#error){
         width:50%;
     }
+    
+    .content{
+        width:30%;
+    }
+    
 } 

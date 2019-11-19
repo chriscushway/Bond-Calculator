@@ -14,10 +14,34 @@ var flags = {rate:0,PV:0,period:0,initial_payment:0}
     NB: Amount is rounded to 2 decimal places
 */
 function calcPMT(rate,PV,years,initial_payment){
-    rate = ((rate/12)/100); //Get rate as decimal value
+    rate = rateAsDecimal(rate,12); //Get rate as decimal value
     PV = PV - initial_payment;
     var PMT = (PV * rate)/(1-Math.pow((1+rate),-(years*12)));
     return PMT.toFixed(2);
+}
+
+function rateAsDecimal(r,m){
+    return ((r/m)/100);
+}
+
+function calcOutstBal(PMT,PV,rate,period_complete){
+    rate = rateAsDecimal(rate,12);
+    var power = period_complete*12;
+    var balance = PV*(Math.pow((1+rate),power))-PMT*(((Math.pow((1+rate),power))-1)/rate);
+    
+    return balance.toFixed(2);
+}
+
+function calcInterest(balance,rate,period){
+    rate = rateAsDecimal(rate,12);
+    period *= 12; 
+    var interest = balance*Math.pow((1+rate),period);
+    interest-=balance;
+    return interest.toFixed(2);
+}
+
+function calcInterestPaid(PMT,interest){
+    return ((interest/PMT) * 100).toFixed(2);
 }
 
 /*
@@ -124,6 +148,12 @@ $("#calc-button").click(function(){
     
 });
 
+function editLabel(input,message){
+    input.siblings("label").html("Calculation Name");
+    input.siblings("label").append("<br><small>"+message+"</small>");
+    input.siblings("label").css("color","#FF5964");
+}
+
 function displayOutput(){
     $("#output #total span:last-child").html("R "+calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment'])+"");
     for(key in inputs){
@@ -144,6 +174,16 @@ function createDataString(inputs){
     return dataString;
 }
 
+function changeModalContent(heading,message,color){
+    $("#modal-heading").html(heading);
+    if(color==0){
+        $("#modal-heading").css("color","#FF5964"); 
+    }else{
+        $("#modal-heading").css("color","#59CD90"); 
+    }
+    $(".modal-body p").html(message);
+}
+
 $("#save").click(function(){
     if(validateCalcName($("#calc-name").val())){
         var dataString = createDataString(inputs);
@@ -156,19 +196,27 @@ $("#save").click(function(){
             data:dataString,
             success: function(data){
                 if(data=="1"){
-                    
+                    changeModalContent("Success","Your calculation has been successfully saved",1);
+                    $("#modal").show();
+                    $(".content").show();
                 }else if(data=="0"){
-                    
+                    changeModalContent("Error","Could not save your calculation please try again later",0);
+                    $("#modal").show();
+                    $(".content").show();
                 }else{
-                    
+                    changeModalContent("Error",data+"",0);
+                    $("#modal").show();
+                    $(".content").show();
                 }
 
             }
         });                  
 
     }else{
-        
-        $("#calc-name").siblings("label").append("<sup>  *name required*</sup>");
-        $("#calc-name").siblings("label").css("color","#FF5964");
+        editLabel($("#calc-name"),"*name required*"); 
     }
+});
+
+$(".close").click(function(){
+    $("#modal").hide();
 });
