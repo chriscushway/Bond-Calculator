@@ -81,10 +81,10 @@ QUnit.test( "Calculation of interest accrued", function( assert ) {
 });
 
 QUnit.test( "Calculation of percent paid as interest", function( assert ) {
-    assert.equal(calcInterestPaid(2500.00,4219.28414),"59.25");
+    assert.equal(calcInterestPaid(2500.00*12,4219.28414).toFixed(2),"59.25");
     assert.equal(calcInterestPaid(0,100).toFixed(2),"0.00");
-    assert.equal(calcInterestPaid(100,100).toFixed(2),"100.00");
-    assert.equal(calcInterestPaid(120,100).toFixed(2),"120.00");
-    assert.equal(calcInterestPaid(-10,100).toFixed(2),"-10.00");
-    assert.equal(calcInterestPaid(25,50).toFixed(2),"50.00");
+    assert.equal(calcInterestPaid(100*12,100).toFixed(2),"100.00");
+    assert.equal(calcInterestPaid(120*12,100).toFixed(2),"120.00");
+    assert.equal(calcInterestPaid(-10*12,100).toFixed(2),"-10.00");
+    assert.equal(calcInterestPaid(25*12,50).toFixed(2),"50.00");
 });
