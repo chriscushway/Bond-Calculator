@@ -25,6 +25,10 @@
             
         
         </div>
+        
+        
+    </div>
+    <div class="segment">
         <div id="output">
             <div id="total"><span>Payment per month</span><span>R1435</span></div>
             <br>
@@ -45,16 +49,58 @@
                 <button id="save" action="save">Save Calculation</button>
             </div>
         </div>
-        
     </div>
     <div class="segment">
         <table id="table">
-            <tr>
-                <th>Year</th>
-                <th>Interest %</th>
-                <th>Capital %</th>
-            </tr>
+            
+                <thead>
+                    <th>Year</th>
+                    <th>Interest %</th>
+                    <th>Capital %</th>
+                </thead>
+                <br><hr>
+                <tbody>
+                
+                </tbody>
+           
         </table>
+    </div>
+    <div class="segment">
+        <div id="graph">
+            <div id="y-axis">
+                <div class="col-50">
+                    <div class="y-label"><span class="label">100</span></div>
+                    <div class="y-label"><span class="label">90</span></div>
+                    <div class="y-label"><span class="label">80</span></div>
+                    <div class="y-label"><span class="label">70</span></div>
+                    <div class="y-label"><span class="label">60</span></div>
+                    <div class="y-label"><span class="label">50</span></div>
+                    <div class="y-label"><span class="label">40</span></div>
+                    <div class="y-label"><span class="label">30</span></div>
+                    <div class="y-label"><span class="label">20</span></div>
+                    <div class="y-label"><span class="label">10</span></div>
+                    
+                </div>
+                <div class="col-50">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div id="bar-container">
+                
+            </div>
+        
+        </div>
+        
+    
     </div>
   
 </div>
