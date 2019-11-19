@@ -1,14 +1,13 @@
 body{
     margin:0;
     font-family:sans-serif;
-    background-color: #A9BCD0;
+    background-color: #E1E0E6;
 }
 
 nav{
     width:100%;
     height:100px;
-    //background-image: linear-gradient(to bottom right, #59CD90,#73FBD3);
-    background-color: #25A18E;
+    position: absolute;
     text-align: center;
     box-shadow: 0px 3px 10px gray; 
     display: flex;
@@ -19,6 +18,78 @@ nav{
 
 nav a{
     text-decoration: none;
+}
+
+#logo{
+    position: absolute;
+    height:100px;
+    width:200px;
+    left:40px;
+    
+}
+
+#bg{
+    width:100%;
+    height:100vh;
+    background-image: url(images/background.jpg);
+  
+    background-position: center center;
+  
+    background-repeat: no-repeat;
+
+    background-attachment: fixed;
+
+    background-size: cover;
+    color:white;
+    padding:calc(100px + 100vh/10) 50px 100px 50px;
+    box-sizing: border-box;
+}
+
+#bg-container{
+    position: absolute;
+    right:50px;
+    bottom:calc(100vh/10);
+    
+}
+
+.text-div{
+    background-color: #E1E0E6;
+    padding:20px;
+    margin:20px;
+}
+#nav-button{
+    background-color: #35A7FF;
+    position: absolute;
+    right:50px;
+    color:white;
+    border:none;
+    border-radius:5px;
+    padding:10px;
+    font-weight:bold;
+}
+
+.small{
+    font-size:100% !important;
+}
+
+#toCalc{
+    border-radius:100%;
+    background-color:#59CD90;
+    padding:50px;
+    border:none;
+    color:white;
+}
+
+#bg span{
+    font-size:200%;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color:rgba(0,0,0,1);
+}
+
+#bg h2{
+    text-decoration: overline;
 }
 
 nav div{
@@ -353,6 +424,9 @@ div[class*="bar"] {
 }
 @media screen and (min-width: 700px){
     
+    .container .segment{
+        width:50%;
+    }
     
     #output div:not(:last-child):not(:first-child):not(#error){
         width:50%;
@@ -362,4 +436,11 @@ div[class*="bar"] {
         width:30%;
     }
     
+    #logo{
+        display:inherit;
+    }
+    
+    #bg h1{
+        font-size:400%;
+    }
 } 
