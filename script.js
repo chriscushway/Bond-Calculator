@@ -20,10 +20,19 @@ function calcPMT(rate,PV,years,initial_payment){
     return PMT.toFixed(2);
 }
 
+/*
+    function that converts and inputted percent value to a decimal value
+    returns float
+*/
 function rateAsDecimal(r,m){
     return ((r/m)/100);
 }
 
+/*
+    function that calculates the outstanding balance after period_complete years of payments
+    have been done
+    returns float rounded to 2 decimal places
+*/
 function calcOutstBal(PMT,PV,rate,period_complete){
     rate = rateAsDecimal(rate,12);
     var power = period_complete*12;
@@ -31,6 +40,12 @@ function calcOutstBal(PMT,PV,rate,period_complete){
     
     return balance.toFixed(2);
 }
+
+/*
+
+    function that determines how much interest has accrued after (period) years
+    returns float rounded to 2 decimal places
+*/
 
 function calcInterest(balance,rate,period){
     rate = rateAsDecimal(rate,12);
@@ -40,7 +55,12 @@ function calcInterest(balance,rate,period){
     return interest.toFixed(2);
 }
 
-function calcInterestPaid(PMT,interest){
+/*
+
+    function that calculates the percentage of the payment that pays of interest
+    returns float rounded to 2 decimal places
+*/
+function calcInterestPaid(interest,PMT){
     return ((interest/PMT) * 100).toFixed(2);
 }
 
