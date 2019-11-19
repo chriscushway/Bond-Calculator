@@ -1,7 +1,9 @@
+
 <div class="container">
     <div class="segment">
         <div id="calculator">
             <div><h2>Bond Calculator</h2></div>
+            <hr>
             <div>
                 <label>rate</label>
                 <input id="rate" type="text" placeholder="Enter rate as %">
@@ -21,14 +23,19 @@
             
             <button id=calc-button>Calculate</button>
         </div>
-        <div id="error">
-            
-        
-        </div>
-        
         
     </div>
-    <div class="segment">
+    <div class="segment" >
+        <div id="welcome">
+            <h1>HOW IT WORKS</h1>
+            <hr>
+            <p>You start by filling in how much you wish to loan, your initial payment, how long you wish to pay it off as well as the interest rate of the specific bond. Then we will tell you how much you will need to pay per month to pay it off by the end of that period</p>
+            <br>
+            <p>We will also show you how much your payment is decreasing the loan and how much of that payment is paying off the interest the loan accrues</p>
+            <br>
+            <p>If you want to save this information you can! As soon as you're finished calculating your payment amount you will be given the option to save your payment. You can view all your saved payments in the "My Calculations" page</p>
+        
+        </div>
         <div id="output">
             <div id="total"><span>Payment per month</span><span>R1435</span></div>
             <br>
@@ -50,22 +57,22 @@
             </div>
         </div>
     </div>
-    <div class="segment">
+    
+    <div class="segment" style="width:70%;">
         <table id="table">
-            
                 <thead>
                     <th>Year</th>
                     <th>Interest %</th>
                     <th>Capital %</th>
                 </thead>
-                <br><hr>
+                
                 <tbody>
                 
                 </tbody>
            
         </table>
     </div>
-    <div class="segment">
+    <div class="segment" style="width:100%;background-color:black;padding:100px 30px">
         <div id="graph">
             <div id="y-axis">
                 <div class="col-50">

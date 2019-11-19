@@ -1,14 +1,13 @@
 body{
     margin:0;
     font-family:sans-serif;
-    background-color: #A9BCD0;
+    background-color: white;
 }
 
 nav{
     width:100%;
     height:100px;
-    //background-image: linear-gradient(to bottom right, #59CD90,#73FBD3);
-    background-color: #25A18E;
+    position: absolute;
     text-align: center;
     box-shadow: 0px 3px 10px gray; 
     display: flex;
@@ -19,6 +18,74 @@ nav{
 
 nav a{
     text-decoration: none;
+}
+
+#logo{
+    position: absolute;
+    height:100px;
+    width:200px;
+    left:40px;
+}
+
+#bg{
+    width:100%;
+    height:100vh;
+    background-image: url(images/background.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color:white;
+    padding:calc(100px + 100vh/10) 50px 100px 50px;
+    box-sizing: border-box;
+    margin-bottom:50px;
+}
+
+#bg-container{
+    position: absolute;
+    right:50px;
+    bottom:calc(100vh/10);
+    
+}
+
+.text-div{
+    background-color: #E1E0E6;
+    padding:20px;
+    margin:20px;
+}
+#nav-button{
+    background-color: #35A7FF;
+    position: absolute;
+    right:50px;
+    color:white;
+    border:none;
+    border-radius:5px;
+    padding:10px;
+    font-weight:bold;
+}
+
+.small{
+    font-size:100% !important;
+}
+
+#toCalc{
+    border-radius:100%;
+    background-color:#59CD90;
+    padding:50px;
+    border:none;
+    color:white;
+}
+
+#bg span{
+    font-size:200%;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color:rgba(0,0,0,1);
+}
+
+#bg h2{
+    text-decoration: overline;
 }
 
 nav div{
@@ -35,13 +102,15 @@ nav div:hover{
 .container{
     width:100%;
     float:left;
+    display:flex;
+    flex-wrap: wrap;
 }
 
 .container .segment{
 
     width: 100%;
     float:left;
-    padding:50px 30px;
+    padding:30px;
     border:1px solid red;
     box-sizing: border-box;
 }
@@ -51,12 +120,12 @@ nav div:hover{
     float:left;
     box-shadow: 0px 3px 10px gray;
     border-radius: 5px;
-    background-color: white;
+    background-color:#282A36;
     margin-bottom:30px;
+    padding:20px;
 }
 
 #calculator div:first-child{
-    background-color: #59CD90;
     padding:20px;
     color:white;
     text-transform: uppercase;
@@ -95,14 +164,18 @@ nav div:hover{
 }
 
 #calculator input{
-    border-radius:5px;
+    
     padding:10px 5px;
-    border:1px solid;
+    border:none;
+    border-bottom:1px solid #35A7FF;
     font-weight:bold;
-    color:gray;
+    color:#35A7FF;
     box-sizing: border-box;
-    border-color:#35A7FF;
+    background-color: transparent;
     //#44E5E7
+}
+#calculator input:focus{
+    outline:none;
 }
 
 #calculator label{
@@ -253,6 +326,12 @@ div[class^="modal"]{
     cursor:pointer;
 }
 
+#welcome p{
+    font-weight:300;
+    letter-spacing: 0.5px;
+    
+}
+
 #modal-heading{
     color:#59CD90;
     font-weight:bolder;
@@ -264,22 +343,29 @@ div[class^="modal"]{
 
 table{
     width:100%;
-    border:solid red thin;
     background-color:#282A36;
     border-radius:5px;
     box-shadow: 0px 3px 10px gray;
     color:white;
+    display:none;
+    height:1px;
+    overflow:scroll;
 }
 
 th,td{
     padding:10px;
     text-align:center;
+    
 }
 
+thead{
+    border-bottom:white;
+}
 #graph{
     width:100%;
     height:400px;
     float:left;
+    display:none;
 }
 
 #y-axis{
@@ -307,9 +393,10 @@ th,td{
 }
 
 #bar-container{
-    border:1px solid yellow;
+    border-left:2px solid white;
+    border-bottom:2px solid white;
     display: grid;
-    grid-column-gap: 5px;
+    grid-column-gap: 20px;
     grid-template-rows: repeat(1, 1fr);
     padding: 5px 10px;
 }
@@ -317,10 +404,11 @@ th,td{
 .line,.y-label{
     width:100%;
     height:10%;
-    
+    color:white;
+    font-weight:bold;
 }
 .line{
-    border-top:1px solid black;
+    border-top:1px solid white;
 }
 .y-label{
     position: relative;
@@ -344,15 +432,19 @@ div[class*="bar"] {
 
 .interest{
     width:100%;
-    background-color: green;
+    background-color:#59CD90;
 }
 
 .capital{
     width:100%;
-    background-color: red;
+    background-color: #FF5964;
 }
 @media screen and (min-width: 700px){
     
+    .container .segment{
+        width:50%;
+        
+    }
     
     #output div:not(:last-child):not(:first-child):not(#error){
         width:50%;
@@ -362,4 +454,11 @@ div[class*="bar"] {
         width:30%;
     }
     
+    #logo{
+        display:inherit;
+    }
+    
+    #bg h1{
+        font-size:400%;
+    }
 } 

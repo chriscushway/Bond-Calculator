@@ -11,6 +11,15 @@
     <body>
     
         <nav>
+            <img id="logo" src="https://www.lifecheq.co.za/assets/img/lifecheq.svg">
             <a href=""><div>Calculator</div></a>
             <a href=""><div>My Calculations</div></a>
+            <button id="nav-button">view unit tests</button>
         </nav>
+        <div id="bg">
+            <div id="bg-container">
+                <div class="text-div"><span>Bond Calculator</span></div>
+                <div class="text-div"><span class="small">Let your finances soar with us</span></div>
+            </div>
+            
+        </div>

@@ -165,8 +165,7 @@ $("#calc-button").click(function(){
         createAndDisplayTable()
         
     }else{
-        $("#output").hide();
-        $("#table").hide();
+        clearOutputs();
     }
     
 });
@@ -182,10 +181,13 @@ function displayOutput(){
     for(key in inputs){
         $("#output #"+key).children("span").eq(1).children(".value").html(" "+inputs[key]+" ");
     }
+    $("#welcome").hide();
     $("#output").fadeIn(1000);
+    
 }
 
 function createAndDisplayTable(){
+    clearOutputs();
     var rate = inputs['rate']; 
     var PV = inputs['PV'];
     var period = inputs['period'];
@@ -203,15 +205,28 @@ function createAndDisplayTable(){
         
     }
     $("#bar-container").html(graphHTML);
-    
+    $("#table").css("display","table");
+    $("#graph").show();
+    shiftGraphLabels();
+    $("#output").show();
+    $("#welcome").hide();
 }
 
 function addBar(height1,height2){
     return "<div class='bar'><div style='height:"+height1+"%' class='interest'></div><div class='capital' style='height:"+height2+"%'></div></div>";
 }
 
+function clearOutputs(){
+    $("#output").hide(); 
+    $("#welcome").show();
+    $("#table tbody").html("");
+    $("#table").hide();
+    $("#graph").hide();
+}
+
 $("#new").click(function(){
-   $("#output").hide(); 
+    clearOutputs();
+    
 });
 
 function createDataString(inputs){
@@ -275,4 +290,8 @@ function shiftGraphLabels(){
     $(".col-50").eq(0).css("margin-top",shift+"px");
 }
 
-shiftGraphLabels()
+
+$("#nav-button").click(function(){
+    window.location.assign("test.html");
+});
+
