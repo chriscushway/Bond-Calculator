@@ -66,6 +66,39 @@
         </table>
     </div>
     <div class="segment">
+        <div id="graph">
+            <div id="y-axis">
+                <div class="col-50">
+                    <div class="y-label"><span class="label">100</span></div>
+                    <div class="y-label"><span class="label">90</span></div>
+                    <div class="y-label"><span class="label">80</span></div>
+                    <div class="y-label"><span class="label">70</span></div>
+                    <div class="y-label"><span class="label">60</span></div>
+                    <div class="y-label"><span class="label">50</span></div>
+                    <div class="y-label"><span class="label">40</span></div>
+                    <div class="y-label"><span class="label">30</span></div>
+                    <div class="y-label"><span class="label">20</span></div>
+                    <div class="y-label"><span class="label">10</span></div>
+                    
+                </div>
+                <div class="col-50">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div id="bar-container">
+                
+            </div>
+        
+        </div>
         
     
     </div>

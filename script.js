@@ -190,21 +190,24 @@ function createAndDisplayTable(){
     var PV = inputs['PV'];
     var period = inputs['period'];
     var initial_payment = inputs['initial_payment'];
-    console.log(rate+" "+PV+" "+period+" "+initial_payment);
     var PMT = calcPMT(rate,PV,period,initial_payment);
-    console.log("PMT = "+PMT);
+    $("#bar-container").css("grid-template-columns","repeat("+period+", 1fr)");
+    var graphHTML = ""
     for(var i = 1;i<=inputs['period'];i++){
         var balance = calcOutstBal(PMT,PV,rate,i);
-        console.log("bal "+balance);
         var interest = calcInterest(balance,rate,1);
-        console.log("interest "+interest);
         var interestPercent = calcInterestPaid(interest,PMT).toFixed(2);
         var capital = (100 - interestPercent).toFixed(2);
         $("#table tbody").append("<tr><td>"+i+"</td><td>"+interestPercent+"</td><td>"+capital+"</td></tr>");
+        graphHTML+=addBar(interestPercent,capital);
         
     }
-   
+    $("#bar-container").html(graphHTML);
     
+}
+
+function addBar(height1,height2){
+    return "<div class='bar'><div style='height:"+height1+"%' class='interest'></div><div class='capital' style='height:"+height2+"%'></div></div>";
 }
 
 $("#new").click(function(){
@@ -265,3 +268,11 @@ $("#save").click(function(){
 $(".close").click(function(){
     $("#modal").hide();
 });
+
+function shiftGraphLabels(){
+
+    var shift = -1*$(".y-label").outerHeight()/2;
+    $(".col-50").eq(0).css("margin-top",shift+"px");
+}
+
+shiftGraphLabels()
