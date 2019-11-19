@@ -48,7 +48,13 @@
         
     </div>
     <div class="segment">
-    
+        <table id="table">
+            <tr>
+                <th>Year</th>
+                <th>Interest %</th>
+                <th>Capital %</th>
+            </tr>
+        </table>
     </div>
   
 </div>

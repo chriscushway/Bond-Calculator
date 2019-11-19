@@ -162,8 +162,11 @@ $("#calc-button").click(function(){
     if(checkFlags(flags)){
         displayOutput();
         removeErrors();
+        createAndDisplayTable()
+        
     }else{
         $("#output").hide();
+        $("#table").hide();
     }
     
 });
@@ -180,6 +183,13 @@ function displayOutput(){
         $("#output #"+key).children("span").eq(1).children(".value").html(" "+inputs[key]+" ");
     }
     $("#output").fadeIn(1000);
+}
+
+function createAndDisplayTable(){
+    for(var i = inputs['period'];i<inputs['period']+1;i++){
+        $("#table").append("<tr><td>"+i+"</td><td></td><td></td></tr>")
+    }
+    
 }
 
 $("#new").click(function(){
