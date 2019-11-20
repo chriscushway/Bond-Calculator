@@ -106,6 +106,10 @@ function reportInputError(input){
     input.siblings("small").show();
 }
 
+/*
+    function that checks if all inputs have been validated
+    retuns boolean
+*/
 function checkFlags(flags){
     for(key in flags){
         if(flags[key]==0){
@@ -114,7 +118,9 @@ function checkFlags(flags){
     }
     return true;
 }
-
+/*
+    function that resets the color of the input label to its original blue colour
+*/
 function removeErrors(){
     $("#calculator input").each(function(){
         $(this).css("border-color","#35A7FF");
@@ -122,21 +128,33 @@ function removeErrors(){
     });
 }
 
+/*
+    function that validates the user has inputted a name 
+    returns bool
+*/
 function validateCalcName(input){
     return input.length > 0;
 }
 
+/*
+    sets value for flag in flags object and the value of the input in the inputs object
+    by using id as the key
+*/
 function updateInputsAndFlags(input,id){
     inputs[id] = input.val();
     flags[id] = 1;
 }
 
+/*
+    Controller for when user clicks calculate button on calculator
+*/
 $("#calc-button").click(function(){
 
     //Validate inputs
     //if inputs valid add them to associative array
-    //Want to use associative array so we can retrieve item by key (id) value in O(1) time
+    //Want to use associative array/ object so we can retrieve item by key (id) value in O(1) time
     $("#calculator input").each(function(){
+        //initial_payment needs different validation
         if($(this).attr('id')=="initial_payment"){
             if(!validatePayment($(this).val())){
                 reportInputError($(this));
@@ -144,13 +162,23 @@ $("#calc-button").click(function(){
             }else{
                 updateInputsAndFlags($(this),$(this).attr("id"));
             }   
-        }else if(!validateInput($(this).val())){
+            
+        }
+        //if there is an error in validating inputs
+        else if(!validateInput($(this).val())){
+            
             reportInputError($(this));
             flags[$(this).attr("id")] = 0;
-        }else if($(this).attr('id')=="rate"){
+            
+        }
+        //rate needs a different validation 
+        else if($(this).attr('id')=="rate"){
+            
             if(!validateRate($(this).val())){
+                
                 reportInputError($(this));
                 flags[$(this).attr("id")] = 0;
+                
             }else{
                 updateInputsAndFlags($(this),$(this).attr("id"));
             }
@@ -160,9 +188,10 @@ $("#calc-button").click(function(){
         }
     });
     if(checkFlags(flags)){
-        displayOutput();
+        
+        generateOutputHTML();
+        displayHTML();
         removeErrors();
-        createAndDisplayTable()
         
     }else{
         clearOutputs();
@@ -170,32 +199,45 @@ $("#calc-button").click(function(){
     
 });
 
-function editLabel(input,message){
-    input.siblings("label").html("Calculation Name");
-    input.siblings("label").append("<br><small>"+message+"</small>");
-    input.siblings("label").css("color","#FF5964");
-}
-
-function displayOutput(){
-    $("#output #total span:last-child").html("R "+calcPMT(inputs['rate'],inputs['PV'],inputs['period'],inputs['initial_payment']).toFixed(2)+"");
-    for(key in inputs){
-        $("#output #"+key).children("span").eq(1).children(".value").html(" "+inputs[key]+" ");
-    }
+/*
+    function that formats the values in the #output div and displays the #output box
+*/
+function displayHTML(){
+    
+    $("#table").css("display","table");
+    $("#graph").show();
+    shiftGraphLabels();
+    $("#output").show();
     $("#welcome").hide();
     $("#output").fadeIn(1000);
     
 }
+/*
+    function that calculates how much of the monthly payment is going toward the interest vs the capital
+    the function then generates HTML based on these percent values in both the graph and table. Moreover, the amount of
+    table rows and graph bars generated is determined by the period.
 
-function createAndDisplayTable(){
+*/
+function generateOutputHTML(){
+    //call this function so stale data is removed
     clearOutputs();
     var rate = inputs['rate']; 
     var PV = inputs['PV'];
     var period = inputs['period'];
     var initial_payment = inputs['initial_payment'];
     var PMT = calcPMT(rate,PV,period,initial_payment);
+    //Generate output for #output box
+    $("#output #total span:last-child").html("R "+PMT.toFixed(2)+"");
+    for(key in inputs){
+        $("#output #"+key).children("span").eq(1).children(".value").html(" "+inputs[key]+" ");
+    }
+    
+    //setting the number of bars in the graph
     $("#bar-container").css("grid-template-columns","repeat("+period+", 1fr)");
     var graphHTML = ""
+    //generate HTML for graph and table
     for(var i = 1;i<=inputs['period'];i++){
+        
         var balance = calcOutstBal(PMT,PV,rate,i);
         var interest = calcInterest(balance,rate,1);
         var interestPercent = calcInterestPaid(interest,PMT).toFixed(2);
@@ -205,17 +247,19 @@ function createAndDisplayTable(){
         
     }
     $("#bar-container").html(graphHTML);
-    $("#table").css("display","table");
-    $("#graph").show();
-    shiftGraphLabels();
-    $("#output").show();
-    $("#welcome").hide();
+    
 }
 
+/* 
+    function that adds bar to bar graph
+*/
 function addBar(height1,height2){
     return "<div class='bar'><div style='height:"+height1+"%' class='interest'></div><div class='capital' style='height:"+height2+"%'></div></div>";
 }
 
+/*
+    function that removes stale data and hides html elements
+*/
 function clearOutputs(){
     $("#output").hide(); 
     $("#welcome").show();
@@ -224,11 +268,17 @@ function clearOutputs(){
     $("#graph").hide();
 }
 
+/*
+    controller for new calculation button
+*/
 $("#new").click(function(){
     clearOutputs();
     
 });
 
+/*
+    function that creates GET data string such that data can be easily parsed by model
+*/
 function createDataString(inputs){
     var dataString ="";
     for(key in inputs){
@@ -237,6 +287,9 @@ function createDataString(inputs){
     return dataString;
 }
 
+/*
+    function that changes the content of the modal
+*/
 function changeModalContent(heading,message,color){
     $("#modal-heading").html(heading);
     if(color==0){
@@ -247,6 +300,9 @@ function changeModalContent(heading,message,color){
     $(".modal-body p").html(message);
 }
 
+/*
+    function that posts data to the model when the save button is pressed
+*/
 $("#save").click(function(){
     if(validateCalcName($("#calc-name").val())){
         var dataString = createDataString(inputs);
@@ -276,7 +332,7 @@ $("#save").click(function(){
         });                  
 
     }else{
-        editLabel($("#calc-name"),"*name required*"); 
+        changeModalContent("Error","Please enter a name before saving a calculation","0")
     }
 });
 
@@ -284,6 +340,11 @@ $(".close").click(function(){
     $("#modal").hide();
 });
 
+/*
+
+    function that shifts graph y-axis labels so they are centered
+
+*/
 function shiftGraphLabels(){
 
     var shift = -1*$(".y-label").outerHeight()/2;
@@ -297,5 +358,8 @@ $("#nav-button").click(function(){
 
 $(".delete").click(function(){
     $(this).parents(".template").remove();
+    var data = $(this).siblings(".name").html();
+    alaert(data);
+                      
 })
 
