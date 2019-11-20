@@ -30,10 +30,28 @@ QUnit.test( "Validate numeric input", function( assert ) {
     assert.equal(onlyNumbers("hello world"),false);
 });
 
-QUnit.test( "Validate non negative input", function( assert ) {
-    assert.equal(validateInput(1),true);
-    assert.equal(validateInput(-1),false);
-    assert.equal(validateInput(0),false);
+QUnit.test( "Validate input", function( assert ) {
+    assert.equal(validateInput(1,"rate"),true);
+    assert.equal(validateInput(-1,"rate"),false);
+    assert.equal(validateInput(0,"rate"),false);
+    assert.equal(validateInput(100,"rate"),true);
+    assert.equal(validateInput(-100,"rate"),false);
+    assert.equal(validateInput(101,"rate"),false);
+    assert.equal(validateInput(1,"period"),true);
+    assert.equal(validateInput(-1,"period"),false);
+    assert.equal(validateInput(0,"period"),false);
+    assert.equal(validateInput(30,"period"),true);
+    assert.equal(validateInput(35,"period"),false);
+    assert.equal(validateInput(10,"period"),true);
+    assert.equal(validateInput(1,"PV"),true);
+    assert.equal(validateInput(-1,"PV"),false);
+    assert.equal(validateInput(0,"PV"),false);
+    assert.equal(validateInput(30,"initial_payment"),true);
+    assert.equal(validateInput(0,"initial_payment"),true);
+    assert.equal(validateInput(-1,"initial_payment"),false);
+    assert.equal(validateInput(-1,"initi_payment"),false);
+    assert.equal(validateInput(100,"initi_payment"),false);
+    assert.equal(validateInput(1,"PW"),false);
 });
 
 QUnit.test( "Validate payment", function( assert ) {
@@ -72,19 +90,27 @@ QUnit.test( "Outstanding balance calculation", function( assert ) {
     assert.equal(calcOutstBal(4219.28414,500000,6,15).toFixed(2),"0.00");
     assert.equal(calcOutstBal(4219.28414,500000,6,179/12).toFixed(2),"4198.29");
     assert.equal(calcOutstBal(4219.28414,500000,6,1/12).toFixed(2),"498280.72");
+    assert.equal(calcOutstBal(532,30000,8.4,1/12).toFixed(2),"29678.00");
+    assert.equal(calcOutstBal(532,30000,8.4,2/12).toFixed(2),"29353.75");
+    
 });
 
 QUnit.test( "Calculation of interest accrued", function( assert ) {
     assert.equal(calcInterest(500000,6,1/12).toFixed(2),"2500.00");
     assert.equal(calcInterest(500000,6,1).toFixed(2),"30838.91");
     assert.equal(calcInterest(500000,6,2).toFixed(2),"63579.89");
+    assert.equal(calcInterest(30000,8.4,1/12).toFixed(2),"210.00");
 });
 
 QUnit.test( "Calculation of percent paid as interest", function( assert ) {
     assert.equal(calcInterestPaid(2500.00*12,4219.28414).toFixed(2),"59.25");
     assert.equal(calcInterestPaid(0,100).toFixed(2),"0.00");
     assert.equal(calcInterestPaid(100*12,100).toFixed(2),"100.00");
-    assert.equal(calcInterestPaid(120*12,100).toFixed(2),"120.00");
+    assert.equal(calcInterestPaid(120*12,100).toFixed(2),"100.00");
     assert.equal(calcInterestPaid(-10*12,100).toFixed(2),"-10.00");
     assert.equal(calcInterestPaid(25*12,50).toFixed(2),"50.00");
+});
+
+QUnit.test( "Calculation of outstanding year balance", function( assert ) {
+    assert.equal(calcAnnualBal(100,5,10).toFixed(2),"50.00");
 });
