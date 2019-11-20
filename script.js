@@ -1,5 +1,5 @@
-var inputs = [];
-var flags = {rate:0,PV:0,period:0,initial_payment:0}
+var inputs = [];    //object to store user inputs
+var flags = {rate:0,PV:0,period:0,initial_payment:0} //flag object to keep track of valid inuts
 
 /*
     rate - Fixed interest rate
@@ -52,22 +52,22 @@ function calcInterest(balance,rate,period){
     period *= 12; 
     var interest = balance*Math.pow((1+rate),period);
     interest-=balance;
-    
     return interest;
 }
 
-function calcYearInterest(PMT,PV,rate){
+/*
+    Function that calculates the interest accrued for the whole year when it is compounded 
+    monthly
+    returns float
+*/
 
+function calcYearInterest(PMT,PV,rate){
     var interest = 0;
     var balance=PV;
-    console.log("INITIAL BALANCE "+PV);
     for(var i = 1;i<13;i++){
         interest+=calcInterest(balance,rate,1/12);
         balance = calcOutstBal(PMT,PV,rate,i/12);
-        console.log("rate"+rate+"PV "+PV+" t "+i+"/12 BALANCE"+balance+" INT "+calcInterest(balance,rate,1/12));
-        
     }
-    console.log("INT = "+interest);
     return interest;
 }
 
@@ -138,7 +138,7 @@ function onlyNumbers(input){
 function reportInputError(input){
     input.css("border-color","#FF5964");
     input.siblings("label").css("color","#FF5964");
-    input.siblings("small").show();
+    input.siblings(".small").show();
 }
 
 /*
@@ -157,9 +157,10 @@ function checkFlags(flags){
     function that resets the color of the input label to its original blue colour
 */
 function removeErrors(){
-    $("#calculator input").each(function(){
+        $("#calculator input").each(function(){
         $(this).css("border-color","#35A7FF");
         $(this).siblings("label").css("color","#35A7FF");
+        $(this).siblings(".small").hide();
     });
 }
 
@@ -207,7 +208,10 @@ $("#calc-button").click(function(){
         
     }else{
         clearOutputs();
+        changeModalContent("Error","Your input was invalid:<br>Please ensure the loan term is less than 30 and greater than 0 <br><br>Please ensure the interest rate is less than 100<br><br>Please ensure inputs don't contain letters and that all of them are filled in","0");
+        displayModal();
     }
+    
     
 });
 
@@ -249,11 +253,6 @@ function generateOutputHTML(){
     //generate HTML for graph and table
     var balance = PV;
     for(var i = 1;i<=inputs['period'];i++){
-        
-        //var balance = calcAnnualBal(prevBal,payments,anInt);
-        //var interest = calcInterest(balance,rate,1);
-        
-        console.log("rate"+rate+" PMT: "+PMT);
         var interest = calcYearInterest(PMT,balance,rate).toFixed(2);
         var interestPercent = calcInterestPaid(interest,PMT).toFixed(2);
         var capital = (100 - interestPercent).toFixed(2);
@@ -301,7 +300,9 @@ function createDataString(inputs){
     }
     return dataString;
 }
-
+/*
+    function that scrolls view down one window height
+*/
 function scrollDown() {
   var vheight = $(window).height();
   $('html, body').animate({
@@ -360,9 +361,12 @@ $(".close").click(function(){
     $("#modal").hide();
 });
 
+/*
+    function that displays modal
+*/
 function displayModal(){
     $("#modal").show();
-    $(".content").show();
+    $(".content").show();//custom animation can go here
 }
 
 /*
@@ -376,11 +380,17 @@ function shiftGraphLabels(){
     $(".col-50").eq(0).css("margin-top",shift+"px");
 }
 
-
+/*
+    controller for nav-button
+*/
 $("#nav-button").click(function(){
     window.location.assign("test.html");
 });
 
+/*
+    controller for delete button
+    sends data to model letting it know which element to delete
+*/
 $(".delete").click(function(){
     $(this).parents(".template").remove();
     var data = "&name="+$(this).siblings(".name").html();
@@ -394,7 +404,9 @@ $(".delete").click(function(){
         });
                       
 })
-
+/*
+    controller for down button
+*/
 $("#down").click(function(){
     scrollDown();
 });
