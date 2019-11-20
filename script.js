@@ -138,7 +138,7 @@ function onlyNumbers(input){
 function reportInputError(input){
     input.css("border-color","#FF5964");
     input.siblings("label").css("color","#FF5964");
-    input.siblings("small").show();
+    input.siblings(".small").show();
 }
 
 /*
@@ -157,9 +157,10 @@ function checkFlags(flags){
     function that resets the color of the input label to its original blue colour
 */
 function removeErrors(){
-    $("#calculator input").each(function(){
+        $("#calculator input").each(function(){
         $(this).css("border-color","#35A7FF");
         $(this).siblings("label").css("color","#35A7FF");
+        $(this).siblings(".small").hide();
     });
 }
 
@@ -207,6 +208,8 @@ $("#calc-button").click(function(){
         
     }else{
         clearOutputs();
+        changeModalContent("Error","Your input was invalid:<br>Please ensure the loan term is less than 30 and greater than 0 <br><br>Please ensure the interest rate is less than 100<br><br>Please ensure inputs don't contain letters and that all of them are filled in","0");
+        displayModal();
     }
     
     
