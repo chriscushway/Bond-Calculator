@@ -71,10 +71,6 @@ function calcYearInterest(PMT,PV,rate){
     return interest;
 }
 
-function calcAnnualBal(balance,PMT,INT){
-    return (balance - (PMT*12) + INT);
-}
-
 /*
 
     function that calculates the percentage of the payment that pays of interest
@@ -208,7 +204,7 @@ $("#calc-button").click(function(){
         
     }else{
         clearOutputs();
-        changeModalContent("Error","Your input was invalid:<br>Please ensure the loan term is less than 30 and greater than 0 <br><br>Please ensure the interest rate is less than 100<br><br>Please ensure inputs don't contain letters and that all of them are filled in","0");
+        changeModalContent("Error","Your input was invalid:<br>Please ensure the loan term is less than 30 and greater than 0 years<br><br>Please ensure the interest rate is less than 100 and does not contain the % character<br><br>Please ensure inputs don't contain letters and that all of them are filled in","0");
         displayModal();
     }
     
