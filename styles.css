@@ -26,11 +26,18 @@ button:hover{
     cursor:pointer;
 }
 
+a{
+    text-decoration: none;
+}
+
 .container,#flexbox,nav{
     display:flex;
     flex-wrap: wrap;
 }
 
+#nav-button,#output,#graph,#modal,.content,#table{
+    display:none;
+}
 nav{
     width:100%;
     height:100px;
@@ -40,10 +47,6 @@ nav{
     justify-content: center;
     align-items: center;
     float:left;
-}
-
-nav a{
-    text-decoration: none;
 }
 
 #logo{
@@ -85,7 +88,7 @@ nav a{
     border-radius:5px;
     padding:10px;
     font-weight:bold;
-    display:none;
+    
 }
 
 .small{
@@ -191,7 +194,7 @@ nav div:hover{
 }
 
 #output{
-    display:none;
+    
     float:left;
     width:100%;
     
@@ -266,7 +269,7 @@ nav div:hover{
     background-color: rgba(0,0,0,0.4);
     top:0;
     left:0;
-    display:none;
+   
 }
 
 .content{
@@ -275,7 +278,7 @@ nav div:hover{
     margin:15% auto;
     border-radius:5px;
     box-shadow: 0px 3px 10px gray;
-    display:none;
+   
 }
 #output input{
     border:none;
@@ -329,9 +332,6 @@ table{
     border-radius:5px;
     box-shadow: 0px 3px 10px gray;
     color:white;
-    display:none;
-    height:1px;
-    overflow:scroll;
 }
 
 th,td{
@@ -347,7 +347,6 @@ thead{
     width:100%;
     height:400px;
     float:left;
-    display:none;
 }
 
 #y-axis{
