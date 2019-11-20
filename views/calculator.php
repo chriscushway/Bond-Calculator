@@ -1,7 +1,12 @@
 <?php
 ?>
 <div id="bg">
-    
+    <div class="center">
+        <span>Bond Calculator</span>
+        <hr>
+        <p>Let your finances soar with us</p>
+        <button id="down">START NOW</button>
+    </div>
 </div>
 <div class="container">
     <div class="segment">
@@ -32,7 +37,7 @@
     <div class="segment" >
         
         <div class="hidden-container" id="output">
-            <div id="total" class="row"><span>Payment per month</span><span>R1435</span></div>
+            <div id="total" class="row"><span>Payment per month</span><span>R-</span></div>
             <br>
             <hr>
             <div id="rate" class="row"><span>Interest Rate</span><span><span class="value"></span><span> %</span></span></div>

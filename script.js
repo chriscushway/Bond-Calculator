@@ -217,9 +217,9 @@ $("#calc-button").click(function(){
 function displayHTML(){
     
     $("#table").css("display","table");
-    $("#graph").show();
+    $("#graph-container").show();
     shiftGraphLabels();
-    $("#output").show();
+    $("#button-div").show();
     $("#output").fadeIn(1000);
     
 }
@@ -277,10 +277,10 @@ function addBar(height1,height2,num){
     function that removes stale data and hides html elements
 */
 function clearOutputs(){
-    $("#output").hide(); 
+     
     $("#table tbody").html("");
     $("#table").hide();
-    $("#graph").hide();
+    $("#graph-container").hide();
 }
 
 /*
@@ -301,6 +301,13 @@ function createDataString(inputs){
     }
     return dataString;
 }
+
+function scrollDown() {
+  var vheight = $(window).height();
+  $('html, body').animate({
+    scrollTop: (Math.floor($(window).scrollTop() / vheight)+1) * vheight
+  }, 500);  
+};
 
 /*
     function that changes the content of the modal
@@ -387,4 +394,8 @@ $(".delete").click(function(){
         });
                       
 })
+
+$("#down").click(function(){
+    scrollDown();
+});
 
