@@ -295,5 +295,7 @@ $("#nav-button").click(function(){
     window.location.assign("test.html");
 });
 
-
+$(".delete").click(function(){
+    $(this).parents(".template").remove();
+})
 

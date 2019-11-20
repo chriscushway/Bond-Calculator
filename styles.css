@@ -38,7 +38,7 @@ nav a{
     color:white;
     padding:calc(100px + 100vh/10) 50px 100px 50px;
     box-sizing: border-box;
-    margin-bottom:50px;
+    
 }
 
 #bg-container{
@@ -76,7 +76,7 @@ nav a{
     color:white;
 }
 
-#bg span{
+#bg span:not(div span){
     font-size:200%;
     font-weight: bolder;
     letter-spacing: 1px;
@@ -107,11 +107,9 @@ nav div:hover{
 }
 
 .container .segment{
-
     width: 100%;
     float:left;
     padding:30px;
-    border:1px solid red;
     box-sizing: border-box;
 }
 
@@ -439,6 +437,107 @@ div[class*="bar"] {
     width:100%;
     background-color: #FF5964;
 }
+
+#scrollBox{
+    width:calc(100% - 50px);
+    
+    padding:20px;
+    max-height: 100%;
+    overflow: auto;
+    color:black;
+    box-sizing: border-box;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    
+}
+
+.template{
+    width:100%;
+    background-color: #282A36;
+    margin:15px 0;
+    border-radius:5px;
+    padding:20px 20px 0 20px;
+    color:white;
+    font-weight:bold;
+    box-sizing: border-box;
+    box-shadow: 0px 3px 10px #282A36;
+    margin:5px;
+}
+
+.template hr{
+    width:100%;
+}
+
+.row hr{
+    border-color:#35A7FF;
+}
+
+.template div{
+   
+    width:100%;
+}
+.left,.right{
+    width:50% !important;
+}
+
+.row{
+    padding:10px 0;
+}
+
+.header{
+    font-size:130%;
+    color:white;
+}
+
+.template *{
+    float:left;
+    box-sizing: border-box;
+}
+
+.header{
+    float:left;
+}
+
+.value{
+    float:right !important;
+}
+
+.row{
+    width:100%;
+}
+
+.name{
+    color:#35A7FF;
+}
+
+.delete{
+    border:none;
+    background-color:#FF5964;
+    color:white;
+    padding:5px 20px;
+    float:right;
+    border-radius:5px;
+    margin:0;
+}
+
+.delete span:first-child{
+    float:left;
+    margin-right:10px;
+}
+.delete span:last-child{
+    float:right;
+}
+.row span:last-child{
+    float:right;
+}
+
+.total{
+    color:#59CD90;
+    font-size:110%;
+}
+
 @media screen and (min-width: 700px){
     
     .container .segment{
@@ -460,5 +559,14 @@ div[class*="bar"] {
     
     #bg h1{
         font-size:400%;
+    }
+    
+    #scrollBox{
+        padding:0 50px 50px 50px;
+    }
+    
+    .template{
+        width:400px;
+        float:left;
     }
 } 
