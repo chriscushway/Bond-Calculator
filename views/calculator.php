@@ -126,13 +126,13 @@
 </div>
   <div id="modal">
         <div class="content">
-            <div class="modal-header">
+            <div class="modal-header row">
+                <span id="modal-heading"></span>
                 <span class="close">&times;</span>
             </div>
-            <br>
-            <hr>
+            
             <div class="modal-body">
-                <span id="modal-heading"></span>
+                
                 <p></p>
             </div>
             
