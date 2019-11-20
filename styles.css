@@ -4,8 +4,31 @@ body{
     background-color: white;
 }
 
+/*
+    Shared styling
+*/
+
 body *{
     box-sizing: border-box;
+    border:solid thin red;
+}
+hr{
+    width:100%;
+}
+
+button{
+    border:none;
+    color:white;
+    border-radius:5px;
+}
+
+button:hover{
+    cursor:pointer;
+}
+
+.container,#flexbox,nav{
+    display:flex;
+    flex-wrap: wrap;
 }
 
 nav{
@@ -14,7 +37,6 @@ nav{
     position: absolute;
     text-align: center;
     box-shadow: 0px 3px 10px gray; 
-    display: flex;
     justify-content: center;
     align-items: center;
     float:left;
@@ -42,7 +64,6 @@ nav a{
     background-size: cover;
     color:white;
     padding:calc(100px + 100vh/10) 50px 100px 50px;
-    box-sizing: border-box;
 }
 
 #bg-container{
@@ -61,8 +82,6 @@ nav a{
     background-color: #35A7FF;
     position: absolute;
     right:50px;
-    color:white;
-    border:none;
     border-radius:5px;
     padding:10px;
     font-weight:bold;
@@ -71,26 +90,6 @@ nav a{
 
 .small{
     font-size:100% !important;
-}
-
-#toCalc{
-    border-radius:100%;
-    background-color:#59CD90;
-    padding:50px;
-    border:none;
-    color:white;
-}
-
-#bg span:not(div span){
-    font-size:200%;
-    font-weight: bolder;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color:rgba(0,0,0,1);
-}
-
-#bg h2{
-    text-decoration: overline;
 }
 
 nav div{
@@ -107,8 +106,6 @@ nav div:hover{
 .container{
     width:100%;
     float:left;
-    display:flex;
-    flex-wrap: wrap;
 }
 
 .container .segment{
@@ -230,20 +227,10 @@ nav div:hover{
 
 #output hr{
     background-color: white;
-    width:100%;
-    
     padding:0 20px;
     height:1px;
     float:left;
     border:none;
-}
-
-#output div span:first-child{
-    float:left;
-}
-
-#output div span:last-child{
-    float:right;
 }
 
 #bd{
@@ -253,11 +240,7 @@ nav div:hover{
 #new,#save{
     float:left;
     padding:20px;
-    
     width:calc(50% - 20px);
-    border:none;
-    border-radius:5px;
-    color:white;
     font-weight:bold;
     text-transform:uppercase;
     letter-spacing: 1.1px;
@@ -273,9 +256,7 @@ nav div:hover{
     margin-right:20px;
 }
 
-button:hover{
-    cursor:pointer;
-}
+
 
 #modal{
     position:fixed;
@@ -447,9 +428,6 @@ div[class*="bar"] {
     max-height: 100%;
     overflow: auto;
     color:black;
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
     justify-content: center;
     
 }
@@ -468,45 +446,17 @@ div[class*="bar"] {
     
 }
 
-.template hr{
-    width:100%;
-}
-
 .row hr{
     border-color:#35A7FF;
 }
 
-.template div{
-   
-    width:100%;
-}
-.left,.right{
-    width:50% !important;
-}
-
 .row{
+    width:100%;
     padding:10px 0;
-}
-
-.header{
-    font-size:130%;
-    color:white;
 }
 
 .template *{
     float:left;
-}
-
-.header{
-    float:left;
-}
-
-.value{
-    float:right !important;
-}
-
-.row{
-    width:100%;
 }
 
 .name{
