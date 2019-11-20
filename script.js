@@ -52,7 +52,27 @@ function calcInterest(balance,rate,period){
     period *= 12; 
     var interest = balance*Math.pow((1+rate),period);
     interest-=balance;
+    
     return interest;
+}
+
+function calcYearInterest(PMT,PV,rate){
+
+    var interest = 0;
+    var balance=PV;
+    console.log("INITIAL BALANCE "+PV);
+    for(var i = 1;i<13;i++){
+        interest+=calcInterest(balance,rate,1/12);
+        balance = calcOutstBal(PMT,PV,rate,i/12);
+        console.log("rate"+rate+"PV "+PV+" t "+i+"/12 BALANCE"+balance+" INT "+calcInterest(balance,rate,1/12));
+        
+    }
+    console.log("INT = "+interest);
+    return interest;
+}
+
+function calcAnnualBal(balance,PMT,INT){
+    return (balance - (PMT*12) + INT);
 }
 
 /*
@@ -61,7 +81,12 @@ function calcInterest(balance,rate,period){
     returns float rounded to 2 decimal places
 */
 function calcInterestPaid(interest,PMT){
-    return ((interest/(PMT*12)) * 100);
+    var paid = ((interest/(PMT*12)) * 100);
+    if(paid>100){
+        return 100;
+    }else{
+        return paid;
+    }
 }
 
 /*
@@ -164,7 +189,7 @@ $("#calc-button").click(function(){
     //if inputs valid add them to associative array
     //Want to use associative array/ object so we can retrieve item by key (id) value in O(1) time
     $("#calculator input").each(function(){
-        //initial_payment needs different validation
+        
         var name = $(this).attr("id");
         var val = $(this).val();
         if(!validateInput(val,name)){
@@ -195,7 +220,6 @@ function displayHTML(){
     $("#graph").show();
     shiftGraphLabels();
     $("#output").show();
-    $("#welcome").hide();
     $("#output").fadeIn(1000);
     
 }
@@ -223,14 +247,19 @@ function generateOutputHTML(){
     $("#bar-container").css("grid-template-columns","repeat("+period+", 1fr)");
     var graphHTML = ""
     //generate HTML for graph and table
+    var balance = PV;
     for(var i = 1;i<=inputs['period'];i++){
         
-        var balance = calcOutstBal(PMT,PV,rate,i);
-        var interest = calcInterest(balance,rate,1);
+        //var balance = calcAnnualBal(prevBal,payments,anInt);
+        //var interest = calcInterest(balance,rate,1);
+        
+        console.log("rate"+rate+" PMT: "+PMT);
+        var interest = calcYearInterest(PMT,balance,rate).toFixed(2);
         var interestPercent = calcInterestPaid(interest,PMT).toFixed(2);
         var capital = (100 - interestPercent).toFixed(2);
+        balance=calcOutstBal(PMT,PV,rate,i);
         $("#table tbody").append("<tr><td>"+i+"</td><td>"+interestPercent+"</td><td>"+capital+"</td></tr>");
-        graphHTML+=addBar(interestPercent,capital);
+        graphHTML+=addBar(interestPercent,capital,i);
         
     }
     $("#bar-container").html(graphHTML);
@@ -240,8 +269,8 @@ function generateOutputHTML(){
 /* 
     function that adds bar to bar graph
 */
-function addBar(height1,height2){
-    return "<div class='bar'><div style='height:"+height1+"%' class='interest'></div><div class='capital' style='height:"+height2+"%'></div></div>";
+function addBar(height1,height2,num){
+    return "<div class='bar'><div style='height:"+height1+"%' class='interest'></div><div class='capital' style='height:"+height2+"%'></div><div class='block'>"+num+"</div></div>";
 }
 
 /*
@@ -249,7 +278,6 @@ function addBar(height1,height2){
 */
 function clearOutputs(){
     $("#output").hide(); 
-    $("#welcome").show();
     $("#table tbody").html("");
     $("#table").hide();
     $("#graph").hide();
@@ -316,7 +344,8 @@ $("#save").click(function(){
         });                  
 
     }else{
-        changeModalContent("Error","Please enter a name before saving a calculation","0")
+        changeModalContent("Error","Please enter a name before saving a calculation","0");
+        displayModal();
     }
 });
 
