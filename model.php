@@ -31,5 +31,13 @@
             exit();
         }
        
+    }else if($_GET['action']=="delete"){
+        $query = "DELETE FROM `users` WHERE name ='".mysqli_real_escape_string($link,$_POST['name'])."' LIMIT 1";
+        $result = mysqli_query($link, $query);
+        if($result){
+                echo "1";
+            }else{
+                echo "0";
+            }
     }
 ?>

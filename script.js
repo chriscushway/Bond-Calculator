@@ -316,16 +316,13 @@ $("#save").click(function(){
             success: function(data){
                 if(data=="1"){
                     changeModalContent("Success","Your calculation has been successfully saved",1);
-                    $("#modal").show();
-                    $(".content").show();
+                    displayModal();
                 }else if(data=="0"){
                     changeModalContent("Error","Could not save your calculation please try again later",0);
-                    $("#modal").show();
-                    $(".content").show();
+                    displayModal();
                 }else{
                     changeModalContent("Error",data+"",0);
-                    $("#modal").show();
-                    $(".content").show();
+                    displayModal();
                 }
 
             }
@@ -339,6 +336,11 @@ $("#save").click(function(){
 $(".close").click(function(){
     $("#modal").hide();
 });
+
+function displayModal(){
+    $("#modal").show();
+    $(".content").show();
+}
 
 /*
 
@@ -358,8 +360,15 @@ $("#nav-button").click(function(){
 
 $(".delete").click(function(){
     $(this).parents(".template").remove();
-    var data = $(this).siblings(".name").html();
-    alaert(data);
+    var data = "&name="+$(this).siblings(".name").html();
+     $.ajax({
+            type: "POST",
+            url: "model.php?action=delete",
+            data:data,
+            success: function(data){
+                
+            }
+        });
                       
 })
 
