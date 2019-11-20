@@ -10,41 +10,59 @@ body{
 
 body *{
     box-sizing: border-box;
-    border:solid thin red;
 }
 hr{
     width:100%;
+    border:none;
+    height:1px;
 }
 
 button{
     border:none;
     color:white;
     border-radius:5px;
+    transition: 0.2s;
 }
 
 button:hover{
     cursor:pointer;
 }
 
+button:hover:not(#calc-button){
+    transform: scale(1.1);
+}
+
 a{
     text-decoration: none;
 }
 
-.container,#flexbox,nav{
+nav,#scrollBox{
     display:flex;
     flex-wrap: wrap;
 }
 
-#nav-button,#output,#graph,#modal,.content,#table{
+#calculator,#output,.content,.template{
+    border-radius:5px;
+    box-shadow: 0px 3px 10px gray;
+}
+
+#nav-button,#output,#modal,.content,#table{
     display:none;
 }
+
+nav,#scrollBox{
+    justify-content: center;
+}
+
+input:focus{
+    outline:none;
+}
 nav{
+    box-shadow: 0px 3px 10px gray;
     width:100%;
     height:100px;
     position: absolute;
     text-align: center;
-    box-shadow: 0px 3px 10px gray; 
-    justify-content: center;
     align-items: center;
     float:left;
 }
@@ -73,7 +91,6 @@ nav{
     position: absolute;
     right:50px;
     bottom:calc(100vh/10);
-    
 }
 
 .text-div{
@@ -85,14 +102,9 @@ nav{
     background-color: #35A7FF;
     position: absolute;
     right:50px;
-    border-radius:5px;
     padding:10px;
     font-weight:bold;
     
-}
-
-.small{
-    font-size:100% !important;
 }
 
 nav div{
@@ -109,60 +121,61 @@ nav div:hover{
 .container{
     width:100%;
     float:left;
+    display:flex;
+    flex-wrap: wrap;
 }
 
-.container .segment{
+.segment{
     width: 100%;
     float:left;
     padding:30px;
-    
+    flex:100%;
+}
+
+.segment:nth-child(n+3){
+    background-color:#282A36;
+    padding-top:50px;
 }
 
 #calculator{
    
     float:left;
-    box-shadow: 0px 3px 10px gray;
-    border-radius: 5px;
-    background-color:#282A36;
     margin-bottom:30px;
     padding:20px;
 }
 
 #calculator div:first-child{
     padding:20px;
-    color:white;
+    color:black;
     text-transform: uppercase;
     text-align:center;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
+#calculator hr{
+    background-color: #35A7FF;
+}
+
 #calculator div:nth-child(n+2){
     width:50%;
     float: left;
     padding:25px 20px;
-    
-    
-    
 }
 
 #calculator button{
     width:calc(100% - 2*20px);
     margin:20px;
-    border:none;
     background-color: #59CD90;
-    color:white;
-    font-weight:bolder;
+    font-weight:bold;
     padding:20px;
-    border-radius:5px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size:100%;
     transition: 0.7s;
 }
 
 #calculator button:hover{
-    cursor: pointer;
+
     background-color: #35A7FF;
 }
 
@@ -171,20 +184,14 @@ nav div:hover{
     padding:10px 5px;
     border:none;
     border-bottom:1px solid #35A7FF;
-    font-weight:bold;
-    color:#35A7FF;
-    
+    color:black;
     background-color: transparent;
-    //#44E5E7
+ 
 }
-#calculator input:focus{
-    outline:none;
-}
+
 
 #calculator label{
     padding:5px 0;
-    font-weight:bold;
-    text-transform: uppercase;
     color:#35A7FF;
 }
 
@@ -194,20 +201,16 @@ nav div:hover{
 }
 
 #output{
-    
     float:left;
     width:100%;
     
-    background-color:#282A36;
     padding:20px 30px;
-    box-shadow: 0px 3px 10px gray;
-    border-radius:5px;
 }
 
 #output div:not(:last-child):not(:first-child):not(#error){
     width:100%;
     float:left;
-    color:white;
+    
     
     padding:20px;
     margin-bottom:10px;
@@ -229,7 +232,8 @@ nav div:hover{
 }
 
 #output hr{
-    background-color: white;
+    background-color: #59CD90;
+    border:none;
     padding:0 20px;
     height:1px;
     float:left;
@@ -276,9 +280,6 @@ nav div:hover{
     width:80%;
     background-color: #011627;
     margin:15% auto;
-    border-radius:5px;
-    box-shadow: 0px 3px 10px gray;
-   
 }
 #output input{
     border:none;
@@ -289,10 +290,6 @@ nav div:hover{
     width:100%;
     
     border-bottom:#59CD90 solid thin;
-}
-
-#output input:focus{
-   outline:none;
 }
 
 div[class^="modal"]{
@@ -326,12 +323,14 @@ div[class^="modal"]{
     color:white;
 }
 
-table{
+#table{
     width:100%;
+    height:0%;
     background-color:#282A36;
-    border-radius:5px;
-    box-shadow: 0px 3px 10px gray;
     color:white;
+    overflow: scroll;
+    float:left;
+    border-radius:5px;
 }
 
 th,td{
@@ -343,18 +342,40 @@ th,td{
 thead{
     border-bottom:white;
 }
+
+
+
 #graph{
     width:100%;
     height:400px;
     float:left;
+    padding: 10px 50px;
+}
+
+#graph-info,#graph-info *{
+    float:left;
+    width:100%;
+}
+
+#graph-info{
+    color:white;
+    padding:20px;
+}
+
+#key div span:last-child{
+    height:20px;
+    width:20px;
+    float:right;
+}
+
+#x-axis{
+    width:100%;
+    height:10px;
+    border:solid thin red;
 }
 
 #y-axis{
     width:5%;
-    height:100%;
-}
-#bar-container{
-    width:95%;
     height:100%;
 }
 
@@ -373,10 +394,12 @@ thead{
 }
 
 #bar-container{
+    width:95%;
+    height:100%;
     border-left:2px solid white;
     border-bottom:2px solid white;
     display: grid;
-    grid-column-gap: 20px;
+    grid-column-gap: 5px;
     grid-template-rows: repeat(1, 1fr);
     padding: 5px 10px;
 }
@@ -407,7 +430,7 @@ div[class*="bar"] {
     height:100%;
     width:100%;
     grid-row-end: 2;
-    
+    text-align:center;
 }
 
 .interest{
@@ -420,33 +443,45 @@ div[class*="bar"] {
     background-color: #FF5964;
 }
 
+.block{
+    color:white;
+    margin-top:10px;
+    text-align: center;
+    display:none;
+    font-size:70%;
+}
+
+div[class*="bar"]:hover .block{
+    display:inherit;
+}
+
 #scrollBox{
     width:calc(100% - 50px);
-    
     padding:20px;
-    max-height: 100%;
+    max-height:100%;
+    color:#35A7FF;
     overflow: auto;
-    color:black;
-    justify-content: center;
-    
+}
+
+.scrollBox{
+    max-height: 400px;
+    overflow: auto;
 }
 
 .template{
     
-    background-color: #282A36;
-    margin:15px 0;
-    border-radius:5px;
+    background-color:#282A36;
+    margin:15px 10px;
     padding:20px 20px 0 20px;
     color:white;
-    font-weight:bold;
     box-shadow: 0px 3px 10px #282A36;
-    margin:10px;
     flex:0 0 1;
-    
+
 }
 
-.row hr{
-    border-color:#35A7FF;
+.template hr{
+    background-color:#35A7FF;
+    height:1px;
 }
 
 .row{
@@ -459,7 +494,8 @@ div[class*="bar"] {
 }
 
 .name{
-    color:#35A7FF;
+    color:#35A7FF;;
+    font-weight:bold;
 }
 
 .delete{
@@ -468,7 +504,6 @@ div[class*="bar"] {
     color:white;
     padding:5px 20px;
     float:right;
-    border-radius:5px;
     margin:0;
 }
 
@@ -490,8 +525,8 @@ div[class*="bar"] {
 
 @media screen and (min-width: 700px){
     
-    .container .segment{
-        width:50%;
+    .segment{
+        flex:50%;
         
     }
     
@@ -519,6 +554,10 @@ div[class*="bar"] {
     #nav-button{
         display:inherit;
     }
+    
+    #graph,#graph-info{
+        width:80%;
+    }
 } 
 
 @media screen and (min-width: 800px){}
@@ -529,7 +568,9 @@ div[class*="bar"] {
     #logo{
         display:inherit;
     }
-    
+    .block{
+        display:inherit;
+    }
 }
 @media screen and (min-width: 800px){}
 @media screen and (min-width: 800px){}
