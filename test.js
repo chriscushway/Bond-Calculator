@@ -111,6 +111,4 @@ QUnit.test( "Calculation of percent paid as interest", function( assert ) {
     assert.equal(calcInterestPaid(25*12,50).toFixed(2),"50.00");
 });
 
-QUnit.test( "Calculation of outstanding year balance", function( assert ) {
-    assert.equal(calcAnnualBal(100,5,10).toFixed(2),"50.00");
-});
+

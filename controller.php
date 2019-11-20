@@ -15,7 +15,7 @@
         $query = "SELECT * FROM `users`";
         $result = mysqli_query($link, $query);
         if(mysqli_num_rows($result) == 0){
-            echo "<h1>You have no saved calculations</h1>";
+            echo "<div class='template'><h1>You have no saved calculations</h1></div>";
         }else{
             while($row = mysqli_fetch_assoc($result)){
                 echo "<div class='template'>
@@ -41,7 +41,7 @@
                             <hr>
                             
                             <div class='row total'>
-                                <span >Monthly payment</span><span>R".$row['total']."</span>
+                                <span >Monthly payment</span><span>R".number_format((float)$row['total'], 2, '.', '')."</span>
                             </div>
                     </div>";
             }
