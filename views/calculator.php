@@ -79,7 +79,7 @@
         
             <div id="graph-info">
                 <div id="graph-heading">
-                    Graph showing the percentage of monthly payments that pay for interest vs capital
+                    Graph showing the percentage of monthly payments that pay for interest vs capital over that year
                 </div>
                 <div id="key">
                     <div class="row"><span>Interest</span><span style="background-color:#59CD90;"></span></div>
