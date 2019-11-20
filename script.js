@@ -76,8 +76,18 @@ function validateRate(rate){
     function to validate input entered is greater than 0
     returns a boolean
 */
-function validateInput(input){
-    return input>0;
+function validateInput(input,name){
+    if(name=="rate"){
+        return input>0 && input <= 100;
+    }else if(name=="period"){
+        return input>0 && input <= 30;
+    }else if(name=="initial_payment"){
+         return input>=0;
+    }else if(name=="PV"){
+         return input>0;
+    }else{
+        return false;
+    }
 }
 
 /*
@@ -155,40 +165,17 @@ $("#calc-button").click(function(){
     //Want to use associative array/ object so we can retrieve item by key (id) value in O(1) time
     $("#calculator input").each(function(){
         //initial_payment needs different validation
-        if($(this).attr('id')=="initial_payment"){
-            if(!validatePayment($(this).val())){
-                reportInputError($(this));
-                flags[$(this).attr("id")] = 0;
-            }else{
-                updateInputsAndFlags($(this),$(this).attr("id"));
-            }   
-            
-        }
-        //if there is an error in validating inputs
-        else if(!validateInput($(this).val())){
-            
+        var name = $(this).attr("id");
+        var val = $(this).val();
+        if(!validateInput(val,name)){
             reportInputError($(this));
-            flags[$(this).attr("id")] = 0;
-            
-        }
-        //rate needs a different validation 
-        else if($(this).attr('id')=="rate"){
-            
-            if(!validateRate($(this).val())){
-                
-                reportInputError($(this));
-                flags[$(this).attr("id")] = 0;
-                
-            }else{
-                updateInputsAndFlags($(this),$(this).attr("id"));
-            }
-          
+            flags[name] = 0;
         }else{
-            updateInputsAndFlags($(this),$(this).attr("id"));
+            updateInputsAndFlags($(this),name);
         }
+       
     });
     if(checkFlags(flags)){
-        
         generateOutputHTML();
         displayHTML();
         removeErrors();

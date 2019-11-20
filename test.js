@@ -30,10 +30,28 @@ QUnit.test( "Validate numeric input", function( assert ) {
     assert.equal(onlyNumbers("hello world"),false);
 });
 
-QUnit.test( "Validate non negative input", function( assert ) {
-    assert.equal(validateInput(1),true);
-    assert.equal(validateInput(-1),false);
-    assert.equal(validateInput(0),false);
+QUnit.test( "Validate input", function( assert ) {
+    assert.equal(validateInput(1,"rate"),true);
+    assert.equal(validateInput(-1,"rate"),false);
+    assert.equal(validateInput(0,"rate"),false);
+    assert.equal(validateInput(100,"rate"),true);
+    assert.equal(validateInput(-100,"rate"),false);
+    assert.equal(validateInput(101,"rate"),false);
+    assert.equal(validateInput(1,"period"),true);
+    assert.equal(validateInput(-1,"period"),false);
+    assert.equal(validateInput(0,"period"),false);
+    assert.equal(validateInput(30,"period"),true);
+    assert.equal(validateInput(35,"period"),false);
+    assert.equal(validateInput(10,"period"),true);
+    assert.equal(validateInput(1,"PV"),true);
+    assert.equal(validateInput(-1,"PV"),false);
+    assert.equal(validateInput(0,"PV"),false);
+    assert.equal(validateInput(30,"initial_payment"),true);
+    assert.equal(validateInput(0,"initial_payment"),true);
+    assert.equal(validateInput(-1,"initial_payment"),false);
+    assert.equal(validateInput(-1,"initi_payment"),false);
+    assert.equal(validateInput(100,"initi_payment"),false);
+    assert.equal(validateInput(1,"PW"),false);
 });
 
 QUnit.test( "Validate payment", function( assert ) {
